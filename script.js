@@ -1,7 +1,6 @@
     document.addEventListener('DOMContentLoaded', () => {
     const loginContainer = document.getElementById('login-container');
     const loginForm = document.getElementById('login-form');
-    const loginButton = document.getElementById('login-button');
     const passwordInput = document.getElementById('password');
     const movieContainer = document.getElementById('movie-container');
     const movieList = document.getElementById('movie-list');
@@ -91,6 +90,7 @@
       'Lilo.and.Stitch.2002.1080p.BluRay.x264.YIFY.mp4',
       'Midway_(2019)_BluRay_high_(fzmovies.net)_a7b32c07fb677b61cb75dfc61546c85a.mp4',
       'Nobody.2021.1080p.WEBRip.x264.AAC5.1-[YTS.MX].mp4',
+      'Operation.Fortune.Ruse.De.Guerre.2023.1080p.BluRay.x264.AAC5.1-[YTS.MX].mp4',
       'Phineas.and.Ferb.The.Movie.2011.mp4',
       'Pride.And.Prejudice.And.Zombies.2016.mp4',
       'Prince.Of.Persia.The.Sands.Of.Time.2010.mp4',
