@@ -140,6 +140,7 @@
       movieFiles.forEach((movieFile) => {
         const listItem = document.createElement('li');
         listItem.textContent = movieFile;
+        listItem.classList.add("movie-item")
         listItem.addEventListener('click', () => playMovie(movieFile));
         movieList.appendChild(listItem);
       });
@@ -156,4 +157,23 @@
     // Populate the movie list on page load.
     populateMovieList();
   });
+
+  function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("mySearch");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("movie-list");
+    li = ul.getElementsByTagName("movie-item");
+  
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].textContent || li[i].innerText;
+      if (a.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
   
