@@ -140,7 +140,7 @@
       movieFiles.forEach((movieFile) => {
         const listItem = document.createElement('li');
         listItem.textContent = movieFile;
-        listItem.classList.add("movie-item")
+        listItem.classList.add("movie-item");
         listItem.addEventListener('click', () => playMovie(movieFile));
         movieList.appendChild(listItem);
       });
