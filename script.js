@@ -1,20 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const loginContainer = document.getElementById('login-container');
-  const loginForm = document.getElementById('login-form');
-  const passwordInput = document.getElementById('password');
-  const movieContainer = document.getElementById('movie-container');
-  const movieList = document.getElementById('movie-list');
-  const videoPlayer = document.getElementById('video-player');
-
-  const correctPassword = 'Movies123';
-  const loggedInKey = 'loggedIn';
-
-  movieContainer.style.display = 'none';
-  loginContainer.style.display = 'block';
+    const loginContainer = document.getElementById('login-container');
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password');
+    const movieContainer = document.getElementById('movie-container');
+    const movieList = document.getElementById('movie-list');
+    const videoPlayer = document.getElementById('video-player');
+    const correctPassword = '1234';
+    const loggedInKey = 'loggedIn';
+  
+    movieContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
 
   // Check if already logged in
   const isLoggedIn = localStorage.getItem(loggedInKey);
 
+  if (isLoggedIn) {
+    handleLogin();
+  }
   // Function to handle successful login
   function handleLogin() {
       localStorage.setItem(loggedInKey, 'true');
@@ -38,12 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
-  loginForm.addEventListener('submit', (enter) => {
-      enter.preventDefault();
+  loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
       testLogin();
   });
 
-  const movieFiles = [
+  // Populate movie list
+  function populateMovieList() {
+    const movieFiles = [
     { complexName: '10,000.B.C.2008.720p.BrRip.x264.YIFY.mp4', simpleName: '10,000 BC' },
     { complexName: '65.2023.mp4', simpleName: '65' },
     { complexName: '1917_(2019)_BluRay_high_(fzmovies.net)_b1cf082b5963af96036479ea31a18432.mp4', simpleName: '1917' },
@@ -167,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { complexName: 'Meg.2.The.Trench.2023.720p.WEBRip.x264.AAC-[YTS.MX]', simpleName: 'The Meg 2: The Trench' },
     { complexName: 'The.Mummy.Tomb.of.The.Dragon.Emperor.2008.1080p.BRrip.x264.GAZ.YIFY.mp4', simpleName: 'The Mummy: Tomb of the Dragon Emperor' },
     { complexName: 'The.Roommate.2011.720p.BrRip.x264.YIFY.mp4', simpleName: 'The Roommate' },
-    { complexName: 'The.Super.Mario.Bros.Movie.2023.mp4', simpleName: 'The Super Mario Bros Movie' },
+    { complexName: 'The.Super.Mario.Bros..Movie.2023.REPACK.720p.WEBRip.x264.AAC-[YTS.MX].mp4', simpleName: 'The Super Mario Bros Movie' },
     { complexName: 'the.tomorrow.war.2021.mp4', simpleName: 'The Tomorrow War' },
     { complexName: 'The_Chronicles_of_Riddick.mp4', simpleName: 'The Chronicles of Riddick (version2)' },
     { complexName: 'Thor.Love.and.Thunder.2022.1080p.WEB-DL.DDP5.1.Atmos.H.264-CM.mkv', simpleName: 'Thor Love and Thunder' },
@@ -180,37 +184,34 @@ document.addEventListener('DOMContentLoaded', () => {
     { complexName: 'Zombieland.Double.Tap.2019.20200102.mp4', simpleName: 'Zombieland: Double Tap' }
   ];
 
-  function populateMovieList() {
-      movieFiles.forEach((movieFile) => {
-          const listItem = document.createElement('li');
-          listItem.textContent = movieFile.simpleName;
-          listItem.classList.add("movie-item");
-          listItem.addEventListener('click', () => playMovie(movieFile.complexName));
-          movieList.appendChild(listItem);
+  movieList.innerHTML = '';
+    movieFiles.forEach(movie => {
+      const listItem = document.createElement('li');
+      listItem.textContent = movie.simpleName;
+      listItem.addEventListener('click', () => {
+        videoPlayer.src = `movies/${encodeURIComponent(movie.complexName)}`;
+        videoPlayer.load(); // Ensure the new source is loaded
+        videoPlayer.play().catch(error => {
+          console.error('Error playing video:', error);
+        });
       });
+      movieList.appendChild(listItem);
+    });
   }
 
-  function playMovie(complexName) {
-      const moviePath = `movies/${complexName}`;
-      videoPlayer.setAttribute('src', moviePath);
-      videoPlayer.load();
-      videoPlayer.play();
-  }
-});
-
+// Search Functionality
 function myFunction() {
-  var input, filter, ul, li, i;
-  input = document.getElementById("mySearch");
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("movie-list");
-  li = ul.getElementsByClassName("movie-item");
-
-  for (i = 0; i < li.length; i++) {
-      const movieName = li[i].textContent || li[i].innerText;
-      if (movieName.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
+    const filter = document.getElementById('mySearch').value.toLowerCase();
+    const movies = movieList.getElementsByTagName('li');
+    for (let i = 0; i < movies.length; i++) {
+      const txtValue = movies[i].textContent || movies[i].innerText;
+      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+        movies[i].style.display = '';
       } else {
-          li[i].style.display = "none";
+        movies[i].style.display = 'none';
       }
+    }
   }
-}
+
+  window.myFunction = myFunction;
+});

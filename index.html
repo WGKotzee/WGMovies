@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>WGMovies</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">WG Movies</div>
+        <ul class="nav-links">
+            <li><a href="#home" id="home">Home</a></li>
+            <li><a href="#movie-container" id="movies">Movies</a></li>
+            <li><a href="#search" id="search">Search</a></li>
+            <li><a href="#contact" id="contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Hero Section with Video Player -->
+    <div class="hero">
+        <!-- Video Player -->
+        <video id="video-player" class="tv-video" poster="Poster.jpeg" controls></video>
+    </div>
+    
+    <!-- Login Section -->
     <div class="container" id="login-container">
         <h1>Login</h1>
         <form id="login-form">
@@ -14,14 +32,16 @@
             <button type="submit">Login</button>
         </form>
     </div>
+    
+    <!-- Movies Section -->
     <div class="container" id="movie-container">
         <h1>WGMovies</h1>
         <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search for movies...">
         <ul id="movie-list"></ul>
-        <video id="video-player" controls></video>
     </div>
 
-    <footer>
+    <!-- Footer -->
+    <footer id="contact">
         <p>&copy; 2023 WGMovies. All rights reserved.</p>
     </footer>
 
